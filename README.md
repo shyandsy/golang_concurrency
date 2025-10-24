@@ -83,3 +83,33 @@ assignment  9  finished by worker  1
 worker:  1  waiting for assignment
 workloads:  map[0:3 1:4 2:3]
 ```
+
+## case 3: concurrent cache implemented by map
+
+implement a concurrent cache based on map, usage for `sync.RWMutex`
+
+interface
+```go
+type Cache interface {
+	Set(key string, value string, ttl time.Duration) // set ket value with ttl
+	Get(key string) (string, bool) // get key, return "", false if not exist
+	Close() // close cache
+}
+```
+
+output
+```shell
+$ cd case3_mapcache
+
+$ go test -v ./
+=== RUN   TestSetGet
+2025/10/24 15:23:33 autoExpiration quit
+--- PASS: TestSetGet (0.00s)
+=== RUN   TestExpiration
+--- PASS: TestExpiration (3.00s)
+=== RUN   TestPartialExpiration
+2025/10/24 15:23:36 autoExpiration quit
+--- PASS: TestPartialExpiration (10.00s)
+PASS
+ok      golang_concurrency/case3_mapcache       13.004s
+```
