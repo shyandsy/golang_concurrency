@@ -88,6 +88,10 @@ workloads:  map[0:3 1:4 2:3]
 
 implement a concurrent cache based on map, usage for `sync.RWMutex`
 
+auto expiration policy
+- auto deletion by timer
+- lazy deletion: check deadline on `Get` method
+
 interface
 ```go
 type Cache interface {
